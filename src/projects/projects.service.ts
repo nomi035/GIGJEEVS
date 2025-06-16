@@ -47,7 +47,7 @@ export class ProjectsService {
   findOne(id: number) {
     return this.projectRepository.findOne({
       where: { id },
-      relations: ['organization'], // Assuming you want to include organization details
+      relations: ['teamMembers'], // Assuming you want to include organization details
     });
   }
 
