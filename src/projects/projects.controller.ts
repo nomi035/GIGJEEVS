@@ -5,13 +5,17 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { currentUser } from 'src/decorators/currentUser';
 import { JwtAuthGuard } from 'src/auth/guard';
+import { User } from 'src/user/entities/user.entity';
+import { UserService } from 'src/user/user.service';
 
 
 @ApiBearerAuth()
 @Controller('projects')
 @ApiTags('Projects')
 export class ProjectsController {
-  constructor(private readonly projectsService: ProjectsService) {}
+  constructor(private readonly projectsService: ProjectsService,
+    private readonly userService:UserService
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -48,6 +52,17 @@ export class ProjectsController {
   @Get('/manager/all')
   findByManagerId(@currentUser() user: any) {
     return this.projectsService.findByManagerId(user.userId);
+  }
+
+   @Patch('/team/:id')
+  async addTeam(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+    const teamMembers = await this.userService.findByIds(updateProjectDto.teamMembers)
+    return await this.projectsService.addTeam(+id,teamMembers);
+    // const project = await this.projectsService.findOne(+id);
+    // project.teamMembers = teamMembers;
+    // return this.(project);
+    // return this.projectsService.update(+id,{...updateProjectDto, teamMembers });
+
   }
 
 }

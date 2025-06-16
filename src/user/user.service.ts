@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role, User } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Organization } from './entities/organization.entity';
 import { CreatOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
@@ -62,5 +62,13 @@ async  create(createUserDto: CreateUserDto) {
 
   async remove(id: number) {
     return await this.usersRepository.delete(id);
+  }
+
+    async findByIds(ids: User[]) {
+     return this.usersRepository.find({
+      where: {
+        id: In(ids),
+  }
+    });
   }
 }

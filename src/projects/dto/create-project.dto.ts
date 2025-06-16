@@ -13,4 +13,6 @@ export class CreateProjectDto {
         endDate?: Date;
         organization:Organization
         manager?:User
+        teamMembers?: User[];
+        
 }

@@ -1,7 +1,7 @@
 import { BaseEntity } from 'base.entity';
 import { Organization } from 'src/user/entities/organization.entity';
 import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
 
 @Entity('Project')
 export class Project extends BaseEntity {
@@ -24,4 +24,8 @@ export class Project extends BaseEntity {
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn()
   manager: User;
+
+  @ManyToMany(() => User, { nullable: true })
+  @JoinTable()
+  teamMembers: User[];
 }

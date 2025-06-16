@@ -4,6 +4,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from './entities/project.entity';
 import { Repository } from 'typeorm';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class ProjectsService {
@@ -56,5 +57,13 @@ export class ProjectsService {
 
   remove(id: number) {
     return this.projectRepository.delete(id);
+  }
+  async addTeam(id:number,teamMembers:User[]){
+    const project = await this.projectRepository.findOne({
+      where:{id},
+      relations: ['teamMembers'] // Assuming teamMembers is a relation in the Project entity
+    })
+    project.teamMembers=teamMembers
+    return this.projectRepository.save(project);
   }
 }
