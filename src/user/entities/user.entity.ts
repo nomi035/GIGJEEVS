@@ -1,5 +1,6 @@
 import { BaseEntity } from 'base.entity';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Organization } from './organization.entity';
 
 @Entity('User')
 export class User extends BaseEntity {
@@ -15,10 +16,14 @@ export class User extends BaseEntity {
   address: string;
   @Column({nullable:true})
   role: Role;
+
+  @ManyToOne(()=> Organization, {  })
+  @JoinColumn()
+  organization: Organization;
 }
 
 export enum Role {
-  TEACHER = 'teacher',
+  MANAGER= 'manager',
   ADMIN = 'admin',
-  STUDENT = 'student',
+  EMPLOYEE = 'employee',
 }

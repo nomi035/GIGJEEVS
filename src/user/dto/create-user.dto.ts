@@ -1,3 +1,4 @@
+import { Organization } from '../entities/organization.entity';
 import { Role } from '../entities/user.entity';
 import { IsOptional } from 'class-validator';
 
@@ -11,8 +12,8 @@ export class CreateUserDto {
   phone: string;
 
 
-  country: string;
+  address: string;
 
-  currency: string;
+  organization: Organization;
   role: Role;
 }
