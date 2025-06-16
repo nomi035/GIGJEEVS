@@ -12,5 +12,5 @@ export class CreateProjectDto {
         @ApiProperty()
         endDate?: Date;
         organization:Organization
-        user:User
+        manager?:User
 }

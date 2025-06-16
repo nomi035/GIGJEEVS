@@ -17,13 +17,29 @@ export class ProjectsService {
 
   findAll() {
     return this.projectRepository.find({
-      relations: ['organization'], // Assuming you want to include organization details
+      relations: ['organization'],
+      order:{
+        id: 'DESC', // Order by id in descending order
+      }// Assuming you want to include organization details
     });
   }
   findByOrganizationId(organizationId: number) {
     return this.projectRepository.find({
       where: { organization: { id: organizationId } },
-      relations: ['organization'], // Include organization details if needed
+      relations: ['organization'],
+      order:{
+        id: 'DESC', // Order by id in descending order
+      } // Include organization details if needed
+    });
+  }
+
+  findByManagerId(managerId: number) {
+    return this.projectRepository.find({
+      where: { manager: { id: managerId } },
+      order: {
+        id: 'DESC', // Order by id in descending order
+      },
+      // Include manager and organization details if needed
     });
   }
 

@@ -46,7 +46,7 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @UseGuards(JwtAuthGuard)
+
 
   @Get()
   findAll(@Query('role') role: Role) {

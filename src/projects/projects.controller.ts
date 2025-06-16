@@ -16,9 +16,8 @@ export class ProjectsController {
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createProjectDto: CreateProjectDto,@currentUser() user: any) {
-    console.log(user)
     return this.projectsService.create({
-      ...createProjectDto,organization:user.organization,user:user.userId});
+      ...createProjectDto,organization:user.organization});
   }
 
   @Get()
@@ -43,6 +42,12 @@ export class ProjectsController {
   @Get('/organization/:organizationId')
   findByOrganizationId(@Param('organizationId') organizationId: string) {
     return this.projectsService.findByOrganizationId(+organizationId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/manager/all')
+  findByManagerId(@currentUser() user: any) {
+    return this.projectsService.findByManagerId(user.userId);
   }
 
 }
