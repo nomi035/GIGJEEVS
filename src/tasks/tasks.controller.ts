@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { CreateTaskDto } from './dto/create-task.dto';
+import { CreateTaskDto, taskSearchDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -32,6 +32,11 @@ export class TasksController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.tasksService.remove(+id);
+  }
+
+  @Post('/user/all')
+  async findAllTasksForUser(@Body() taskSearchDto:taskSearchDto) {
+    return this.tasksService.findAllTasksForUser(taskSearchDto);
   }
 
 

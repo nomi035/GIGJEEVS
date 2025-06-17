@@ -27,3 +27,10 @@ export class CreateTaskDto {
   })
   taskOf: Project;
 }
+
+export class taskSearchDto{
+    @ApiProperty()
+    userId:number
+    @ApiProperty()
+    projectId:number
+}
