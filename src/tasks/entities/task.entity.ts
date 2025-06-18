@@ -33,6 +33,11 @@ export class Task extends BaseEntity{
     @JoinColumn()
     taskOf:Project
 
+    @Column({
+        nullable: true,
+    })
+    comment: string;
+
 
 }
 

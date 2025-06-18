@@ -26,6 +26,12 @@ export class CreateTaskDto {
     required: true,
   })
   taskOf: Project;
+  @ApiProperty({
+    description: 'Optional comment for the task',
+    type: String,
+    required: false,
+  })
+  comment?: string;
 }
 
 export class taskSearchDto{
