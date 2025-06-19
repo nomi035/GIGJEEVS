@@ -18,7 +18,7 @@ export class ProjectsService {
 
   findAll() {
     return this.projectRepository.find({
-      relations: ['organization'],
+      relations: ['organization','manager'],
       order:{
         id: 'DESC', // Order by id in descending order
       }// Assuming you want to include organization details
