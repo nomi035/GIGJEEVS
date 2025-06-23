@@ -1,4 +1,5 @@
 import { BaseEntity } from 'base.entity';
+import { TaskStatus } from 'src/tasks/entities/task.entity';
 import { Organization } from 'src/user/entities/organization.entity';
 import { User } from 'src/user/entities/user.entity';
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
@@ -28,4 +29,7 @@ export class Project extends BaseEntity {
   @ManyToMany(() => User, { nullable: true })
   @JoinTable()
   teamMembers: User[];
+
+  @Column({default:TaskStatus.INPROGRESS})
+  status: TaskStatus;
 }
