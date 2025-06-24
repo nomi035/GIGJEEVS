@@ -29,7 +29,7 @@ export class Task extends BaseEntity{
     @JoinColumn()
     taskFor:User
 
-    @ManyToOne(()=> Project)
+    @ManyToOne(()=> Project,{onDelete: 'CASCADE'})
     @JoinColumn()
     taskOf:Project
 
