@@ -44,6 +44,13 @@ export class ProjectsService {
     });
   }
 
+  findByEmployeeId(employeeId: number) {
+    return this.projectRepository.find({
+      where:{teamMembers:{id:employeeId}}
+
+    })
+  }
+
   findOne(id: number) {
     return this.projectRepository.findOne({
       where: { id },

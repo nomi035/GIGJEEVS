@@ -54,6 +54,12 @@ export class ProjectsController {
     return this.projectsService.findByManagerId(user.userId);
   }
 
+    @UseGuards(JwtAuthGuard)
+  @Get('/employee/all')
+  findByEmployeeId(@currentUser() user: any) {
+    return this.projectsService.findByEmployeeId(user.userId);
+  }
+
    @Patch('/team/:id')
   async addTeam(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
     const teamMembers = await this.userService.findByIds(updateProjectDto.teamMembers)
