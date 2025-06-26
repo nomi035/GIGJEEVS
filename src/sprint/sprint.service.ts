@@ -26,6 +26,7 @@ export class SprintService {
     return this.sprintRepository.find({
       where: { createdBy: { id: managerId } },
       order: { createdAt: 'DESC' },
+      relations: ['project'],
     });
   }
   findOne(id: number) {
