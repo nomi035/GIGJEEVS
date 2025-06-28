@@ -39,7 +39,13 @@ export class TasksController {
     return this.tasksService.findAllTasksForUser(taskSearchDto);
   }
 
-  
+  @Get('/sprint/:id')
+  async findTaskBySprint(@Param('id') id: string) {
+    return this.tasksService.findTaskBySprint(+id);
+  }
+
+
+
 
 
 }

@@ -51,4 +51,12 @@ export class TasksService {
       } // Include related entities
     });
   }
+
+  findTaskBySprint(id:number){
+    return this.tasksRepository.find({
+      where: {sprint:{id}
+
+      }
+    })
+  }
 }

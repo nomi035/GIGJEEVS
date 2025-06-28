@@ -1,5 +1,6 @@
 import { BaseEntity } from "base.entity";
 import { Project } from "src/projects/entities/project.entity";
+import { Sprint } from "src/sprint/entities/sprint.entity";
 import { User } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
@@ -37,6 +38,10 @@ export class Task extends BaseEntity{
         nullable: true,
     })
     comment: string;
+
+    @ManyToOne(()=>Sprint)
+    @JoinColumn()
+    sprint:Sprint
 
 
 }
