@@ -38,7 +38,10 @@ export class TasksService {
   remove(id: number) {
     return this.tasksRepository.delete(id);
   }
-  async findAllTasksForUser(taskSearchDto: { userId: number; projectId: number }) {
+  async findAllTasksForUser(taskSearchDto: {
+    userId: number;
+    projectId: number;
+  }) {
     const { userId, projectId } = taskSearchDto;
     return this.tasksRepository.find({
       where: {
@@ -46,17 +49,16 @@ export class TasksService {
         taskOf: { id: projectId },
       },
       relations: ['taskFor', 'taskOf'],
-      order:{
+      order: {
         createdAt: 'DESC', // Order by creation date, descending
-      } // Include related entities
+      }, // Include related entities
     });
   }
 
-  findTaskBySprint(id:number){
+  findTaskBySprint(id: number) {
     return this.tasksRepository.find({
-      where: {sprint:{id}
-
-      }
-    })
+      where: { sprint: { id } },
+      relations: ['taskFor'],
+    });
   }
 }
