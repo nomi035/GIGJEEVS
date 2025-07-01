@@ -40,6 +40,12 @@ export class SprintController {
   findSprintByManager(@currentUser() user: any) {
     return this.sprintService.findByManagerId(user.userId);
   }
+
+  @Get('/project/:id')
+  findSprintByProject(@Param('id') id: string) {
+    return this.sprintService.findByProjectId(+id);
+  }
+  
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.sprintService.findOne(+id);
