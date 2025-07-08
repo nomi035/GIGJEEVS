@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto, taskSearchDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/guard';
+import { currentUser } from 'src/decorators/currentUser';
 
+@ApiBearerAuth()
 @ApiTags('Tasks')
 @Controller('tasks')
 export class TasksController {
@@ -42,6 +45,12 @@ export class TasksController {
   @Get('/sprint/:id')
   async findTaskBySprint(@Param('id') id: string) {
     return this.tasksService.findTaskBySprint(+id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/user/all')
+  async findAllUserTasks(@currentUser() user: any) {
+    return this.tasksService.findAllUserTasks(user.userId);
   }
 
 

@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProjectsModule } from './projects/projects.module';
 import { TasksModule } from './tasks/tasks.module';
 import { SprintModule } from './sprint/sprint.module';
+import { DiscussionsModule } from './discussions/discussions.module';
 
 @Module({
   imports: [UserModule,
@@ -30,6 +31,7 @@ import { SprintModule } from './sprint/sprint.module';
      ProjectsModule,
      TasksModule,
      SprintModule,
+     DiscussionsModule,
      ],
   controllers: [AppController],
   providers: [AppService],

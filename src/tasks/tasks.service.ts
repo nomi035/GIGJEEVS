@@ -61,4 +61,15 @@ export class TasksService {
       relations: ['taskFor'],
     });
   }
+
+  findAllUserTasks(userId: number) {
+    console.log(userId)
+    const result=this.tasksRepository.createQueryBuilder('task')
+  .leftJoin('task.taskFor', 'user')
+  .leftJoin('task.taskOf', 'project')
+  .addSelect(['project.name']) // select only project.name
+  .where('user.id = :userId', { userId })
+  .getMany();
+    return result;
+  }
 }
