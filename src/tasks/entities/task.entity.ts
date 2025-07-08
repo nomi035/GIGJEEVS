@@ -43,6 +43,11 @@ export class Task extends BaseEntity{
     @JoinColumn()
     sprint:Sprint
 
+    @Column({
+        nullable: true,
+        default:() => 'CURRENT_TIMESTAMP'
+    })
+    taskDate: Date;
 
 }
 

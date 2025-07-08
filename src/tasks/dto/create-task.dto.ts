@@ -38,6 +38,9 @@ export class CreateTaskDto {
     description:"when adding task from sprint it will be the id of the sprint associated"
   })
   sprint:Sprint
+
+  @ApiProperty()
+  taskDate: Date;
 }
 
 export class taskSearchDto{
