@@ -24,7 +24,10 @@ export class DiscussionsService {
 
   findAll() {
     return this.discussionRepository.find({
-      relations: ['comments'], // Include related comments
+      relations: ['comments','discussionBy'], // Include related comments and the user who created the discussion
+      // Include related commen
+      order: { createdAt: 'DESC', // Order by creation date, descending
+      },
     });
     // This method retrieves all discussions, including their comments
   }
