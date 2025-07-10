@@ -14,7 +14,7 @@ import { Server, Socket } from 'socket.io';
     origin: '*', // Adjust for production
   },
 })
-export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class MessagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private users: Record<string, string> = {}; // socketId -> username
 
   handleConnection(client: Socket) {
