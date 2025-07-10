@@ -9,6 +9,7 @@ import { ProjectsModule } from './projects/projects.module';
 import { TasksModule } from './tasks/tasks.module';
 import { SprintModule } from './sprint/sprint.module';
 import { DiscussionsModule } from './discussions/discussions.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [UserModule,
@@ -32,6 +33,7 @@ import { DiscussionsModule } from './discussions/discussions.module';
      TasksModule,
      SprintModule,
      DiscussionsModule,
+     MessagesModule,
      ],
   controllers: [AppController],
   providers: [AppService],
