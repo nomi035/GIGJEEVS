@@ -38,6 +38,13 @@ async  create(createUserDto: CreateUserDto) {
     return await this.organizationRepository.save(createOrganizationDto);
   }
 
+async updateSocketId(socketId:string,userId:number){
+  const user=await this.findOne(userId)
+  user.socketId=socketId
+  await this.usersRepository.save(user)
+  
+}
+
  async findAll(role:Role) {
    return await this.usersRepository.find({
     where: {

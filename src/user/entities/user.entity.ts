@@ -14,16 +14,19 @@ export class User extends BaseEntity {
   phone: string;
   @Column({ nullable: true })
   address: string;
-  @Column({nullable:true})
+   @Column({ nullable: true })
+  socketId: string;
+  @Column({ nullable: true })
   role: Role;
+  
 
-  @ManyToOne(()=> Organization, {  })
+  @ManyToOne(() => Organization, {})
   @JoinColumn()
   organization: Organization;
 }
 
 export enum Role {
-  MANAGER= 'manager',
+  MANAGER = 'manager',
   ADMIN = 'admin',
   EMPLOYEE = 'employee',
 }

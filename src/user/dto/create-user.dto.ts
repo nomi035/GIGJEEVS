@@ -16,4 +16,5 @@ export class CreateUserDto {
 
   organization: Organization;
   role: Role;
+  socketId:string;
 }

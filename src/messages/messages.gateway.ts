@@ -7,7 +7,9 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
+import { clearConfigCache } from 'prettier';
 import { Server, Socket } from 'socket.io';
+import { UserService } from 'src/user/user.service';
 
 @WebSocketGateway({
   cors: {
@@ -15,10 +17,20 @@ import { Server, Socket } from 'socket.io';
   },
 })
 export class MessagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  private users: Record<string, string> = {}; // socketId -> username
+  constructor(private readonly userService:UserService){
+  
+  }
+  private users: Record<string, string> = {};
+ 
+  
 
-  handleConnection(client: Socket) {
-    console.log(`Client connected: ${client.id}`);
+  async handleConnection(client: Socket) {
+    const socketId:string=client.id
+    console.log(`Client connected: ${client.id}`,typeof(socketId));
+    const userId = client.handshake.auth.userId;
+    const user=await this.userService.updateSocketId(client.id,userId)
+    const updatedUser = await this.userService.findOne(userId)
+    // console.log(updatedUser)
   }
 
   handleDisconnect(client: Socket) {
@@ -43,6 +55,7 @@ export class MessagesGateway implements OnGatewayConnection, OnGatewayDisconnect
     const username = this.users[client.id] || 'Anonymous';
     const payload = { message: data.message, username };
     client.broadcast.emit('message', payload);
+    console.log("message",payload)
     client.emit('message', payload); // Send back to sender too
   }
 }
