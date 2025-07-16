@@ -16,20 +16,18 @@ import { UserService } from 'src/user/user.service';
     origin: '*', // Adjust for production
   },
 })
-export class MessagesGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  constructor(private readonly userService:UserService){
-  
-  }
+export class MessagesGateway
+  implements OnGatewayConnection, OnGatewayDisconnect
+{
+  constructor(private readonly userService: UserService) {}
   private users: Record<string, string> = {};
- 
-  
 
   async handleConnection(client: Socket) {
-    const socketId:string=client.id
-    console.log(`Client connected: ${client.id}`,typeof(socketId));
+    const socketId: string = client.id;
+    console.log(`Client connected: ${client.id}`, typeof socketId);
     const userId = client.handshake.auth.userId;
-    const user=await this.userService.updateSocketId(client.id,userId)
-    const updatedUser = await this.userService.findOne(userId)
+    const user = await this.userService.updateSocketId(client.id, userId);
+    const updatedUser = await this.userService.findOne(userId);
     // console.log(updatedUser)
   }
 
@@ -44,18 +42,24 @@ export class MessagesGateway implements OnGatewayConnection, OnGatewayDisconnect
     @ConnectedSocket() client: Socket,
   ) {
     this.users[client.id] = username;
+    console.log('the usernamme is', username);
     client.broadcast.emit('userJoined', username);
   }
 
   @SubscribeMessage('message')
   handleMessage(
-    @MessageBody() data: { message: string },
+    @MessageBody()
+    data: { message: string; senderId: string; receiverId: string },
     @ConnectedSocket() client: Socket,
   ) {
-    const username = this.users[client.id] || 'Anonymous';
-    const payload = { message: data.message, username };
+    const payload = {
+      message: data.message,
+      senderId: data.senderId,
+      receiverId: data.receiverId,
+    };
     client.broadcast.emit('message', payload);
-    console.log("message",payload)
-    client.emit('message', payload); // Send back to sender too
+    console.log('message', payload);
+    // client.emit('message', payload); // Send back to sender too
+    console.log('hello world');
   }
 }
