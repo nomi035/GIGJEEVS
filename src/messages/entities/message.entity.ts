@@ -1,7 +1,8 @@
 import { BaseEntity } from "base.entity";
 import { User } from "src/user/entities/user.entity";
-import { Column, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
+@Entity('messages')
 export class Message extends BaseEntity{
     @Column()
     messageBody:string
