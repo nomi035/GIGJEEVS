@@ -15,7 +15,7 @@ export class MessagesService {
   }
 
   findAll() {
-    return `This action returns all messages`;
+    return this.messageRepository.find();
   }
 
   findbysender(senderId:number,receiverId:number){
@@ -24,6 +24,9 @@ export class MessagesService {
         sendBy: { id: senderId },
         receivedBy: { id: receiverId },
       },
+      relations: ['sendBy', 'receivedBy'],
+      select: {sendBy:{name:true,id:true},receivedBy:{name:true,id:true},id:true,messageBody:true,createdAt:true,updatedAt:true,isActive:true},
+
       order: {
         createdAt: 'DESC',
       },
