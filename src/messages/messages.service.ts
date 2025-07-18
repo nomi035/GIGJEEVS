@@ -20,10 +20,17 @@ export class MessagesService {
 
   findbysender(senderId:number,receiverId:number){
     return this.messageRepository.find({
-      where: {
+      where: [
+      {
         sendBy: { id: senderId },
         receivedBy: { id: receiverId },
       },
+      {
+        sendBy: { id: receiverId },
+        receivedBy: { id: senderId },
+      },
+    ],
+
       relations: ['sendBy', 'receivedBy'],
       select: {sendBy:{name:true,id:true},receivedBy:{name:true,id:true},id:true,messageBody:true,createdAt:true,updatedAt:true,isActive:true},
 
