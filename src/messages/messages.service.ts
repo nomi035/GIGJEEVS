@@ -35,7 +35,7 @@ export class MessagesService {
       select: {sendBy:{name:true,id:true},receivedBy:{name:true,id:true},id:true,messageBody:true,createdAt:true,updatedAt:true,isActive:true},
 
       order: {
-        createdAt: 'DESC',
+        createdAt: 'ASC',
       },
     });
      }
