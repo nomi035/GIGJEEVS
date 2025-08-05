@@ -11,6 +11,7 @@ import { SprintModule } from './sprint/sprint.module';
 import { DiscussionsModule } from './discussions/discussions.module';
 import { MessagesModule } from './messages/messages.module';
 import { NotesModule } from './notes/notes.module';
+import { SignalingModule } from './signaling/signaling.module';
 
 @Module({
   imports: [UserModule,
@@ -36,6 +37,7 @@ import { NotesModule } from './notes/notes.module';
      DiscussionsModule,
      MessagesModule,
      NotesModule,
+     SignalingModule
      ],
   controllers: [AppController],
   providers: [AppService],
